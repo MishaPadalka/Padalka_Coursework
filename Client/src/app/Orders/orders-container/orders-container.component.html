@@ -1,0 +1,51 @@
+<div class="ui search">
+        <div class="ui calendar">
+            <div class="ui input right icon">
+                <i class="calendar icon"></i>
+                <input type="text" [value]="time" (ngModelChange)="Search($event.target.value)">
+            </div>
+        </div>
+    <button class="ui inverted primary button" [disabled]="getSearch()" (click)="clear()">
+        <i class="minus icon"></i>
+        clear
+    </button>
+    <div class="results"></div>
+</div>
+<div class="ui divider"></div>
+
+<div class="ui centered inline loader" [ngClass]="{active: loading}"></div>
+
+<div class="container">
+    <div *ngFor="let order of orders" class="ui card">
+        <div class="content">
+            <div class="header">
+                <p>Train name : {{order.nameTrain}}</p>
+            </div>
+        </div>
+        <div class="content">
+            <div class="ui small feed">
+                <div class="event">
+                    <div class="content">
+                        <div class="summary">
+                            <p>Order date:&#8194;{{order.orderDate | date :'dd-MMM-yy h:mm:ss'}}</p>
+                            <p>Number seat:&#8194;{{order.numberSeat}}</p>
+                            <p>Number carriage:&#8194;{{order.numberCarriage}}</p>
+                            <p>From:&#8194;{{order.whereFrom}}</p>
+                            <p>To:&#8194;{{order.whereGoes}}</p>
+                            <p>Departure:&#8194;{{order.departure | date :'dd-MMM-yy h:mm:ss'}}</p>
+                            <p>Arrival:&#8194;{{order.arrival  | date :'dd-MMM-yy h:mm:ss'}}</p>
+                            <p>Buyer first name:&#8194;{{order.buyerFirstName}}</p>
+                            <p>Buyer last name:&#8194;{{order.buyerLastName}}</p>
+                            <p>Price:&#8194;{{order.price}}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="extra content">
+            <button [routerLink]="[order.id]" class="ui primary button">
+                select
+            </button>
+        </div>
+    </div>
+</div>

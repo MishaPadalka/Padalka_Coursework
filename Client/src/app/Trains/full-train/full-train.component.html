@@ -1,0 +1,121 @@
+<div class="ui centered inline loader" [ngClass]="{active: loading}"></div>
+
+<div class="container">
+    <div *ngIf="!loading" class="full-content">
+        <div class="buttons">
+            <div routerLink="/trains" class="ui vertical animated button" tabindex="0">
+                <div class="hidden content">Return</div>
+                <div class="visible content">
+                    <i class="reply icon"></i>
+                </div>
+            </div>
+            <div class="ui vertical animated button" tabindex="0" (click)="deleteTrain()">
+                <div class="hidden content">Cancel</div>
+                <div class="visible content">
+                    <i class="trash icon"></i>
+                </div>
+            </div>
+            <div class="ui animated button" tabindex="0" (click)="createNew()">
+                <div class="visible content">Add carriage</div>
+                <div class="hidden content">
+                    <i class="plus icon"></i>
+                </div>
+            </div>
+        </div>
+        <div class="ui card">
+            <div class="content">
+                <div class="header">Name : {{train.name}}</div>
+            </div>
+            <div class="content">
+                <div class="ui small feed">
+                    <div class="event">
+                        <div class="content">
+                            <div class="summary">
+                                <p>{{train.whereFrom}} - {{train.whereGoes}}</p>
+                                <p>Departure:&#8194;{{train.departure | date :'dd-MMM-yy h:mm:ss'}}</p>
+                                <p>Arrival:&#8194;{{train.arrival  | date :'dd-MMM-yy h:mm:ss'}}</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="event">
+                        <div class="content">
+                            <div class="summary">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="extra content">
+                <p>Free space : {{train.freePlaces}}</p>
+                <p>Occupied Places : {{train.occupiedPlaces}}</p>
+            </div>
+        </div>
+        <div class="create">
+            <form [formGroup]="Form" class="ui form">
+                <div class="field">
+                    <label>Type</label>
+                    <input type="text" placeholder="Type" formControlName="type">
+                </div>
+                <div class="field">
+                    <label>Seat Price</label>
+                    <input type="number" placeholder="Price" formControlName="seatPrice">
+                </div>
+                <div class="field">
+                    <label>Count of seats</label>
+                    <input type="number" placeholder="Number" formControlName="number" min="1" max="30">
+                </div>
+                <button class="ui button" (click)="back()">Back</button>
+                <button class="ui button" [ngClass]="{loading : sending}" type="submit" [disabled]="Form.invalid"
+                    (click)="createCarriage()">Submit</button>
+            </form>
+        </div>
+        <div *ngFor="let carriage of train.carriages" class="ui cards">
+            <div class="card">
+                <div class="content">
+                    <div class="header">
+                        <p>Type: {{carriage.type}}</p>
+                    </div>
+                    <div class="meta">
+                        <p>Number : {{carriage.number}}</p>
+                        <p>Percent : {{percent(carriage.seats)}}%</p>
+                        <p>Price : {{carriage.seats[0]?.price}}</p>
+                    </div>
+                    <div class="description">
+                        <div class="carriages">
+                            <div *ngFor="let seat of carriage.seats" [ngClass]="{'free': seat.free}" class="carriage"
+                                (click)="check(seat,carriage.id)">
+                                {{seat.numberSeat}}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="extra content">
+                        <br />
+                        <button class="ui black button" (click)="deleteCarriage(carriage.id)">
+                            Delete
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div id="{{carriage.id}}" class="seatOperation">
+                <p><b>{{openedSeatId}}</b></p>
+                <form [formGroup]="SeatForm" class="ui form">
+                    <div class="field">
+                        <label>First Name</label>
+                        <input type="text" placeholder="First Name" formControlName="buyerFirstName">
+                    </div>
+                    <div class="field">
+                        <label>Last Name</label>
+                        <input type="text" placeholder="Last Name" formControlName="buyerLastName">
+                    </div>
+                    <div class="field">
+                        <label>Price: &#8194; {{carriage.seats[0]?.price}}</label>
+                    </div>
+                    <button class="ui button" (click)="backSeat()">Back</button>
+                    <button class="ui button" [ngClass]="{loading : sendingSeat}" type="submit"
+                        [disabled]="SeatForm.invalid"
+                        (click)="createOrder(carriage.seats[0].price,carriage)">Submit</button>
+                </form>
+            </div>
+        </div>
+
+    </div>

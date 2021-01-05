@@ -1,0 +1,96 @@
+<div class="ui search">
+  <div class="ui icon input">
+    <input class="prompt"  [(ngModel)]="word" (ngModelChange)="onChange()" type="text" placeholder="Find Trains...">
+    <i class="search icon"></i>
+  </div>
+  <button class="ui inverted primary button" (click)="create()">
+    <i class="plus icon"></i>
+    create
+  </button>
+  <div class="results"></div>
+</div>
+<div class="ui divider"></div>
+
+<div class="ui centered inline loader" [ngClass]="{active: loading}"></div>
+
+<div class="container">
+  <div class="create">
+    <form [formGroup]="Form" class="ui form" (ngSubmit)="submit()">
+      <div class="field">
+        <label>Name</label>
+        <input type="text" placeholder="Name" formControlName="name">
+      </div>
+      <div class="field">
+        <label>WhereGoes</label>
+        <input type="text" placeholder="Where Goes" formControlName="whereGoes">
+      </div>
+      <div class="field">
+        <label>WhereFrom</label>
+        <input type="text" name="last-name" placeholder="Where From" formControlName="whereFrom">
+      </div>
+      <div class="field">
+        <label>Departure</label>
+        <div class="ui calendar">
+          <div class="ui input right icon">
+            <i class="calendar icon"></i>
+            <input type="text" [value]="departure" (blur)="setDeparture($event.target.value)">
+          </div>
+        </div>
+      </div>
+      <div class="field">
+        <label>Arrival</label>
+        <div class="ui calendar">
+          <div class="ui input right icon">
+            <i class="calendar icon"></i>
+            <input type="text" [value]="arrival" (blur)="setArrival($event.target.value)">
+          </div>
+        </div>
+      </div>
+      <button class="ui button" [disabled]="Form.invalid || arrival === undefined || departure === undefined"
+        type="submit" (click)="submit()">Submit</button>
+    </form>
+  </div>
+  <div *ngFor="let train of trains" class="ui card">
+    <div class="content">
+      <div class="header">{{train.name}}</div>
+    </div>
+    <div class="content">
+      <div class="ui small feed">
+        <div class="event">
+          <div class="content">
+            <div class="summary">
+              <p>{{train.whereFrom}} - {{train.whereGoes}}</p>
+              <p>Departure:&#8194;{{train.departure | date :'dd-MMM-yy h:mm:ss'}}</p>
+              <p>Arrival:&#8194;{{train.arrival  | date :'dd-MMM-yy h:mm:ss'}}</p>
+            </div>
+          </div>
+        </div>
+        <div class="event">
+          <div class="content">
+            <div class="summary">
+              <table *ngIf="Check(train.typesPlace)" class="ui celled table">
+                <thead>
+                  <tr>
+                    <th>Type</th>
+                    <th>Free spaces</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let item of train.typesPlace | keyvalue">
+                    <td>{{item.key}}</td>
+                    <td>{{item.value}}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="extra content">
+      <button [routerLink]="[train.id]" class="ui primary button">
+        select
+      </button>
+    </div>
+  </div>
+</div>

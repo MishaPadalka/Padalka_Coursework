@@ -1,0 +1,8 @@
+C:\Users\misha\OneDrive\Desktop\Education-master\Education-master\CourseWork\Server\Common\bin\Debug\netcoreapp3.1\Common.deps.json
+C:\Users\misha\OneDrive\Desktop\Education-master\Education-master\CourseWork\Server\Common\bin\Debug\netcoreapp3.1\Common.dll
+C:\Users\misha\OneDrive\Desktop\Education-master\Education-master\CourseWork\Server\Common\bin\Debug\netcoreapp3.1\Common.pdb
+C:\Users\misha\OneDrive\Desktop\Education-master\Education-master\CourseWork\Server\Common\obj\Debug\netcoreapp3.1\Common.csprojAssemblyReference.cache
+C:\Users\misha\OneDrive\Desktop\Education-master\Education-master\CourseWork\Server\Common\obj\Debug\netcoreapp3.1\Common.AssemblyInfoInputs.cache
+C:\Users\misha\OneDrive\Desktop\Education-master\Education-master\CourseWork\Server\Common\obj\Debug\netcoreapp3.1\Common.AssemblyInfo.cs
+C:\Users\misha\OneDrive\Desktop\Education-master\Education-master\CourseWork\Server\Common\obj\Debug\netcoreapp3.1\Common.dll
+C:\Users\misha\OneDrive\Desktop\Education-master\Education-master\CourseWork\Server\Common\obj\Debug\netcoreapp3.1\Common.pdb

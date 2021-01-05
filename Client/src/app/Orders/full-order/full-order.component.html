@@ -1,0 +1,70 @@
+<div class="ui centered inline loader" [ngClass]="{active: loading}"></div>
+<div class="container">
+    <div *ngIf="!loading" class="full-content">
+        <div class="buttons">
+            <div routerLink="/orders" class="ui vertical animated button" tabindex="0">
+                <div class="hidden content">Return</div>
+                <div class="visible content">
+                    <i class="reply icon"></i>
+                </div>
+            </div>
+            <div class="ui vertical animated button" tabindex="0" (click)="delete()">
+                <div class="hidden content">Delete</div>
+                <div class="visible content">
+                    <i class="trash icon"></i>
+                </div>
+            </div>
+            <div class="ui animated button" tabindex="0" (click)="updateForm()">
+                <div class="visible content">Update</div>
+                <div class="hidden content">
+                    <i class="pencil alternate icon"></i>
+                </div>
+            </div>
+        </div>
+        <div class="ui card">
+            <div class="content">
+                <div class="header">
+                    <p>Train name : {{order.nameTrain}}</p>
+                </div>
+            </div>
+            <div class="content">
+                <div class="ui small feed">
+                    <div class="event">
+                        <div class="content">
+                            <div class="summary">
+                                <p>Order date:&#8194;{{order.orderDate | date :'dd-MMM-yy h:mm:ss'}}</p>
+                                <p>Number seat:&#8194;{{order.numberSeat}}</p>
+                                <p>Number carriage:&#8194;{{order.numberCarriage}}</p>
+                                <p>From:&#8194;{{order.whereFrom}}</p>
+                                <p>To:&#8194;{{order.whereGoes}}</p>
+                                <p>Departure:&#8194;{{order.departure | date :'dd-MMM-yy h:mm:ss'}}</p>
+                                <p>Arrival:&#8194;{{order.arrival  | date :'dd-MMM-yy h:mm:ss'}}</p>
+                                <p>Buyer first name:&#8194;{{order.buyerFirstName}}</p>
+                                <p>Buyer last name:&#8194;{{order.buyerLastName}}</p>
+                                <p>Price:&#8194;{{order.price}}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="extra content">
+                <div *ngIf="update">
+                    <form [formGroup]="Form" class="ui form">
+                        <div class="field">
+                            <label>First Name</label>
+                            <input type="text" [(ngModel)]="order.buyerFirstName"  placeholder="First Name" formControlName="firstName">
+                        </div>
+                        <div class="field">
+                            <label>Last Name</label>
+                            <input type="text" [(ngModel)]="order.buyerLastName" placeholder="Second Name" formControlName="secondName">
+                        </div>
+                        <button class="ui button" (click)="Back()">Back</button>
+                        <button class="ui button" [ngClass]="{loading : sending}" type="submit"
+                            [disabled]="Form.invalid"
+                            (click)="UpdateOrder()">Update</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
